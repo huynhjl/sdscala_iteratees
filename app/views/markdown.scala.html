@@ -1,0 +1,9 @@
+@(html: Html)
+
+@{
+
+val proc = new util.PegDownProc(org.pegdown.Extensions.ALL & ~org.pegdown.Extensions.HARDWRAPS)
+
+Html(proc.markdownToHtml(html.body))
+
+}
