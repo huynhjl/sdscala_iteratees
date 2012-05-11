@@ -22,9 +22,9 @@ from the stream
 > <small>John W Lato (one of the author of the Haskell iteratee package)</small>
 
 Iteratees are used in Play2 to perform *reactive* programming to deal with IO
-where threads don't get blocked while waiting for data. The source control the 
-execution.
-
+where threads don't get blocked while waiting for data. The source of the data 
+control the execution. The consumer of the data can pass control signal like 
+continue, done or error.
 
 ## Examples
 
