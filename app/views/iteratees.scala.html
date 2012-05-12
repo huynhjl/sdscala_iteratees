@@ -411,6 +411,9 @@ Iteratee
 Enumerator
 :  [framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala#L363](https://github.com/playframework/Play20/blob/2.0.1/framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala#L363)
 
+Enumeratee
+:  [framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala#L417](https://github.com/playframework/Play20/blob/2.0.1/framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala#L417)
+
 
 ## Concatenate 10 elements
 
@@ -482,7 +485,25 @@ Enumeratee:
     enumeratee    &>>    iteratee     // alias for tranform
     enumeratee  compose  enumeratee   // returns Enumeratee[From, To2]
     enumeratee    ><>    enumeratee   // alias for compose
+
+## Writing an Enumeratee and an Iteratee
+
+`enumTap` is an enumeratee that should log the input provided by the enumerator.
+`iterTap` will allow logging the state changes of the iteratee given an input.
      
+	val data = Enumerator(1, 2, 3)
+	Iteratee.flatten(
+	  data &> enumTap("test") 
+	  |>> iterTap("fold") ?<< Iteratee.fold(0)((sum, (e)) => sum + e)
+	).run.value
+    \\ @{
+
+import play.api.libs.iteratee._
+import util._
+
+val data = Enumerator(1, 2, 3)
+Iteratee.flatten(data &> enumTap("test") |>> iterTap("fold") ?<< Iteratee.fold(0)((sum, (e)) => sum + e)).run.value
+    }
 
 Further Reading
 ===============
