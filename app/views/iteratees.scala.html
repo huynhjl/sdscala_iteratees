@@ -506,6 +506,16 @@ val data = Enumerator(1, 2, 3)
 Iteratee.flatten(data &> enumTap("test") |>> iterTap("fold") ?<< Iteratee.fold(0)((sum, (e)) => sum + e)).run.value
     }
 
+## map and flatMap examples
+
+    PNG.read("http://localhost:9000/assets/images/favicon.png")
+@**
+import play.api.libs.iteratee._
+import util._
+Html(PNG.read("http://localhost:9000/assets/images/favicon.png").map(t => "    // " + t).mkString("\n"))
+**@
+
+
 Further Reading
 ===============
 
